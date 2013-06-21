@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using sharedFunctions;
 using System.IO;
-namespace trojanMk2
+
+namespace operatorClient
 {
     class OpClient : IOperator
     {
