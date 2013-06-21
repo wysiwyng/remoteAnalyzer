@@ -37,7 +37,7 @@ function getResponseById($id) {
 }
 
 if($_POST) {
-    mysql_connect("localhost","$mysql_user","%mysql_pass") or die(mysql_error());
+    mysql_connect("localhost","$mysql_user","$mysql_pass") or die(mysql_error());
     mysql_select_db("$mysql_db") or die(mysql_error());
 
     $sql_reply = mysql_query("SELECT * FROM `users` WHERE `UID` = '" . $_POST['UID'] . "'") or die("%failed to query users, mysql error was: " . mysql_error());
