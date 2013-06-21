@@ -5,5 +5,5 @@ a test project to examine the possibilities of remote analyzing computers via c#
 
 sort of work in progress, doesn't really do anything useful yet.
 
-nuff said... php and mysql scripts coming soon (as soon as i have removed stuff pointing to my server)
+nuff said... mysql scripts to create tables coming soon (or not... look them up in the php files)
 
