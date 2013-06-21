@@ -210,7 +210,5 @@ pip-log.txt
 
 #Translations
 *.mo
-
-#Mr Developer
-.mr.developer.cfg
-/serverBackend
+/serverBackend/config.inc.php
+/serverBackend/nbproject/private
