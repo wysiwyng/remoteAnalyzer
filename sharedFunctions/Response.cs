@@ -11,34 +11,33 @@ namespace sharedFunctions
     {
         private int ID;
         private int forCommandID;
+        private int UID;
         
         private String response;
         
         private bool read;
 
-        public Response(Stream respStream, Char seperator = '\r')
+        public Response(int _forCommandID, int _UID, String _response)
         {
-            setValues(respStream, seperator);
+            UID = _UID;
+            forCommandID = _forCommandID;
+            response = _response;
+            read = false;
         }
 
-        public Response(String respString, Char seperator = '\r')
+        public Response(String respString)
         {
-            setValues(respString, seperator);
+            setValues(respString);
         }
 
-        private void setValues(Stream valueStream, Char seperator = '\r')
+        private void setValues(String inputString)
         {
-            setValues(new StreamReader(valueStream).ReadToEnd(), seperator);
-        }
-
-        private void setValues(String valueString, Char seperator = '\r')
-        {
-            String values = Encoder.hexToString(valueString);
-            String[] valuesSplit = values.Split(seperator);
-            ID = Convert.ToInt32(valuesSplit[0]);
-            forCommandID = Convert.ToInt32(valuesSplit[1]);
-            response = valuesSplit[2];
-            read = Convert.ToBoolean(valuesSplit[3]);
+            String[] inputSplit = inputString.Split(new Char[] { '\f' });
+            ID = Convert.ToInt32(inputSplit[0]);
+            forCommandID = Convert.ToInt32(inputSplit[1]);
+            UID = Convert.ToInt32(inputSplit[2]);
+            response = inputSplit[3];
+            read = Convert.ToBoolean(inputSplit[4]);
         }        
 
         public int getID()
@@ -61,9 +60,9 @@ namespace sharedFunctions
             return read;
         }
 
-        public String toString(Char seperator = '\r')
+        public String ToString()
         {
-            return ID + seperator + forCommandID + seperator + response + seperator + read;
+            return "\nresponse id: " + ID.ToString() + "\n forCmdID: " + forCommandID.ToString() + "\n TargetID: " + UID.ToString() + "\n " + response + "\n read: " + read;
         }
     }
 }
