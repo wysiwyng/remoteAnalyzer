@@ -60,7 +60,7 @@ namespace sharedFunctions
             return read;
         }
 
-        public String ToString()
+        public override String ToString()
         {
             return "\nresponse id: " + ID.ToString() + "\n forCmdID: " + forCommandID.ToString() + "\n TargetID: " + UID.ToString() + "\n " + response + "\n read: " + read;
         }
