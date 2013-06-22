@@ -36,6 +36,23 @@ function getResponseById($id) {
     echo $row['response'];
 }
 
+function getResponseByCmdId($id) {
+    $sql_reply = mysql_query("SELECT * FROM `responses` WHERE `cmdId`='" . $id . "'") or die("error fetching command, mysql said: " . mysql_error());
+    if(mysql_num_rows($sql_reply) == 0) {
+        die("%response not found");
+    }
+    $row = mysql_fetch_array($sql_reply);
+    echo $row['ID'];
+    echo "\r";
+    echo $row['cmdId'];
+    echo " C ";
+    echo $row['UID'];
+    echo " C ";
+    echo $row['read'];
+    echo " C ";
+    echo $row['response'];    
+}
+
 if($_POST) {
     mysql_connect("localhost","$mysql_user","$mysql_pass") or die(mysql_error());
     mysql_select_db("$mysql_db") or die(mysql_error());
