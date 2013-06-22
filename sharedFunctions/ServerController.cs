@@ -47,10 +47,10 @@ namespace sharedFunctions
         public Target[] getTargets()
         {
             List<Target> targets = new List<Target>();
-            foreach (String str in serverIO("action=getTargets"))
+            foreach (String str in serverIO("action=getTargets"))       //iterate over each string the server returns
             {
-                String[] targetStr = str.Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
-                targets.Add(new Target(targetStr[0] + "\f" + Encoder.hexToString(targetStr[1])));
+                String[] targetStr = str.Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);     //splits the string further
+                targets.Add(new Target(targetStr[0] + "\f" + Encoder.hexToString(targetStr[1])));               //create a new target from the input string
             }
             return targets.ToArray();
         }
@@ -108,19 +108,19 @@ namespace sharedFunctions
             {
                 throw new IOException("server backend uri not set!");
             }
-            WebRequest webRequest = WebRequest.Create(uri);
-            webRequest.Method = "POST";
-            webRequest.ContentType = "application/x-www-form-urlencoded";
+            WebRequest webRequest = WebRequest.Create(uri);                     //create webRequest to the given uri
+            webRequest.Method = "POST";                                         //set method to post
+            webRequest.ContentType = "application/x-www-form-urlencoded";       //and mime type to application
 
-            byte[] byteArray = Encoding.UTF8.GetBytes(payload + "&UID=" + id + "&timestamp=" + Encoder.stringToHex(DateTime.Now.ToString()));
-            webRequest.ContentLength = byteArray.Length;
-            webRequest.GetRequestStream().Write(byteArray, 0, byteArray.Length);
-            webRequest.GetRequestStream().Close();
+            byte[] byteArray = Encoding.UTF8.GetBytes(payload + "&UID=" + id + "&timestamp=" + Encoder.stringToHex(DateTime.Now.ToString()));   //convert payload to byte array
+            webRequest.ContentLength = byteArray.Length;                            //set content length
+            webRequest.GetRequestStream().Write(byteArray, 0, byteArray.Length);    //write the byte array to the upload stream (transfer data to server)
+            webRequest.GetRequestStream().Close();                                  //close upload stream
 
             String[] responseSplit = new StreamReader(webRequest.GetResponse().GetResponseStream()).ReadToEnd().Split(new Char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             List<String> responseList = new List<String>();
 
-            foreach (String str in responseSplit)
+            foreach (String str in responseSplit)           //filter out debug messages
             {
                 if (str.StartsWith("%"))
                 {

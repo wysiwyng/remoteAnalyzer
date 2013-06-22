@@ -10,20 +10,20 @@ namespace operatorClient
 {
     class OpClient : IOperator
     {
-        private static int ID;
-        private static int UID;
-        private static DateTime lastOnlineTime;
-        private static int permissions;
+        private static int ID;                      //the database id
+        private static int UID;                     //the unique uid
+        private static DateTime lastOnlineTime;     //the last online time
+        private static int permissions;             //the permissions of this operator, not used
 
-        private static ServerController serverController;
+        private static ServerController serverController;   //a serverController
 
         private static Operator op;
 
         static void Main(string[] args)
         {
             lastOnlineTime = DateTime.Now;
-            UID = sharedFunctions.IdManager.loadUID();
-            if (UID == -1)
+            UID = sharedFunctions.IdManager.loadUID();      //read the uid from app settings
+            if (UID == -1)                                  //check it for validity, if invalid create a new uid and save
             {
                 UID = sharedFunctions.IdManager.createUID();
                 sharedFunctions.IdManager.saveUID(UID);
@@ -32,25 +32,26 @@ namespace operatorClient
             Console.WriteLine("remoteAnalyzerMk2 operator client running, id is: " + UID);
             Console.WriteLine("registering operator...");
 
-            op = new Operator(0, UID, DateTime.Now, 0);
+            op = new Operator(0, UID, DateTime.Now, 0);     //create new operator object for the serverController to work with
 
             serverController = new ServerController(op);
 
-            if (serverController.loadUri() == null)
+            if (serverController.loadUri() == null)         //load and check server controller uri, if not set prompt for it
             {
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
                 serverController = new ServerController(op);
             }
 
-            serverController.register();
+            serverController.register();                    //register the uid
 
             String input = "";
+
             do
             {
-                Console.Write("\r\nop>");
-                input = Console.ReadLine();
-                switch (input)
+                Console.Write("\r\nop>");                   //displays a prompt
+                input = Console.ReadLine();                 //and read it
+                switch (input)                              //and checks what you entered
                 {
                     case "test":
                         Console.WriteLine(sharedFunctions.Encoder.stringToHex("\f"));
@@ -58,14 +59,17 @@ namespace operatorClient
                         break;
                     case "getTargets":
                         sharedFunctions.Target[] targets = serverController.getTargets();
-                        Console.WriteLine(targets[0].ToString());
+                        foreach (sharedFunctions.Target target in targets)
+                        {
+                            Console.WriteLine(target.ToString());
+                        }
                         break;
                     case "cmd":
                         Console.Write("to>");
                         String to = Console.ReadLine();
                         Console.Write("cmd>");
                         String data = Console.ReadLine();
-                        Console.WriteLine(serverController.saveCommand(new Command(Convert.ToInt32(to), data)).ToString());
+                        Console.WriteLine(serverController.saveCommand(new Command(Convert.ToInt32(to), data)).ToString()); //creates a new command, saves it on the server and displays it again in the prompt
                         break;
                     case "listCmds":
                         sharedFunctions.Command[] commands = serverController.listCommands();
