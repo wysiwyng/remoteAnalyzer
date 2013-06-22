@@ -48,7 +48,7 @@ namespace operatorClient
             String input = "";
             do
             {
-                Console.Write("\r\n op>");
+                Console.Write("\r\nop>");
                 input = Console.ReadLine();
                 switch (input)
                 {
