@@ -48,7 +48,7 @@ namespace operatorClient
             String input = "";
             do
             {
-                Console.Write("\r\ntrojanMK2 op>");
+                Console.Write("\r\n op>");
                 input = Console.ReadLine();
                 switch (input)
                 {
