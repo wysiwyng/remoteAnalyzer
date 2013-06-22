@@ -36,8 +36,8 @@ namespace sharedFunctions
             ID = Convert.ToInt32(inputSplit[0]);
             forCommandID = Convert.ToInt32(inputSplit[1]);
             UID = Convert.ToInt32(inputSplit[2]);
-            response = inputSplit[3];
-            read = Convert.ToBoolean(inputSplit[4]);
+            response = inputSplit[4];
+            read = Convert.ToBoolean(inputSplit[3]);
         }        
 
         public int getID()

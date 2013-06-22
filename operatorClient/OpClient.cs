@@ -67,7 +67,7 @@ namespace operatorClient
                         String data = Console.ReadLine();
                         Console.WriteLine(serverController.saveCommand(new Command(Convert.ToInt32(to), data)).ToString());
                         break;
-                    case "resp":
+                    case "listCmds":
                         sharedFunctions.Command[] commands = serverController.listCommands();
                         foreach (sharedFunctions.Command command in commands)
                         {
@@ -78,6 +78,13 @@ namespace operatorClient
                         Console.Write("id>");
                         String id = Console.ReadLine();
                         Console.WriteLine(serverController.getCommand(Convert.ToInt32(id)).ToString());
+                        break;
+                    case "resp":
+                        Console.Write("cmd ID>");
+                        String cmdID = Console.ReadLine();
+                        Console.Write("response>");
+                        String response = Console.ReadLine();
+                        Console.WriteLine(serverController.saveResponse(new Response(Convert.ToInt32(cmdID), Convert.ToInt32(UID), response)).ToString());
                         break;
                     default:
                         Console.WriteLine("unsupported command");

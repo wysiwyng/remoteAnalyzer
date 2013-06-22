@@ -94,7 +94,7 @@ if($_POST) {
             getCommandById(mysql_insert_id());
             break;
         case "saveResponse":
-            mysql_query("INSERT INTO `responses` (`ID`,`cmdId`,`UID`,`response`) VALUES (NULL,'" . $_POST['cmdId'] . "','" . $_POST['UID'] . "','66 61 6C 73 65','" . $_POST['response'] . "');") or die ("%error inserting new response, mysql said: " . mysql_error());           
+            mysql_query("INSERT INTO `responses` (`ID`,`cmdId`,`UID`,`read`,`response`) VALUES (NULL,'" . $_POST['cmdId'] . "','" . $_POST['UID'] . "','66 61 6C 73 65','" . $_POST['response'] . "');") or die ("%error inserting new response, mysql said: " . mysql_error());           
             getResponseById(mysql_insert_id());
             break;
         case "listCommands":
