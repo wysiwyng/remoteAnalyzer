@@ -36,7 +36,7 @@ namespace operatorClient
 
             serverController = new ServerController(op);
 
-            if (serverController.loadUri() == "" || serverController.loadUri() == null)
+            if (serverController.loadUri() == null)
             {
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
