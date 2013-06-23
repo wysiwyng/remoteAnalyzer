@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 
 namespace sharedFunctions
 {
+    /// <summary>
+    /// a class for creating and receiving server messages
+    /// </summary>
     public class ServerController
     {
         private String id;
         private String type;
         private String uri;
 
+        /// <summary>
+        /// the constructor for a ServerController object
+        /// </summary>
+        /// <param name="op">an operator for determining the id</param>
         public ServerController(IOperator op)
         {
             id = Encoder.stringToHex(op.getUID().ToString());
@@ -21,6 +26,10 @@ namespace sharedFunctions
             uri = loadUri();
         }
 
+        /// <summary>
+        /// the constructor for a ServerController object
+        /// </summary>
+        /// <param name="target">a target for determining the id</param>
         public ServerController(ITarget target)
         {
             id = Encoder.stringToHex(target.getUID().ToString());
@@ -28,22 +37,38 @@ namespace sharedFunctions
             uri = loadUri();
         }
 
+        /// <summary>
+        /// loads the saved server backend uri from application settings
+        /// </summary>
+        /// <returns>the saved uri</returns>
         public String loadUri()
         {
             return Properties.Settings.Default.serverUri;
         }
 
+        /// <summary>
+        /// sets and saves a given server backend uri to application settings
+        /// </summary>
+        /// <param name="uri">the uri to save</param>
         public void saveUri(String uri)
         {
             Properties.Settings.Default.serverUri = uri;
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// registers the interface the server controller was constructed with
+        /// TODO: return the operator/target registered
+        /// </summary>
         public void register()
         {
             serverIO("action=register&type=" + Encoder.stringToHex(type));           
         }
 
+        /// <summary>
+        /// returns a list of all targets that exist in the servers database
+        /// </summary>
+        /// <returns>an array of targets</returns>
         public Target[] getTargets()
         {
             List<Target> targets = new List<Target>();
@@ -55,11 +80,20 @@ namespace sharedFunctions
             return targets.ToArray();
         }
 
+        /// <summary>
+        /// returns an array of all operators that exist in the servers database
+        /// </summary>
+        /// <returns>nothing yet, not implemented at the time</returns>
         public Operator[] getOperators()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// saves a command on the server
+        /// </summary>
+        /// <param name="command">the command object to save</param>
+        /// <returns>the saved command as the server saved it</returns>
         public Command saveCommand(Command command)
         {
             String[] inputString = serverIO("action=saveCommand&to=" + Encoder.stringToHex(command.getForTargetID().ToString()) + "&cmd=" + Encoder.stringToHex(command.getCommandData()));
@@ -67,6 +101,11 @@ namespace sharedFunctions
             return new Command(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
 
+        /// <summary>
+        /// saves a response on the server
+        /// </summary>
+        /// <param name="response">the response object to save</param>
+        /// <returns>the saved response as the server saved it</returns>
         public Response saveResponse(Response response)
         {
             String[] inputString = serverIO("action=saveResponse&cmdId=" + Encoder.stringToHex(response.getForCommandID().ToString()) + "&response=" + Encoder.stringToHex(response.getResponseData()));
@@ -74,6 +113,10 @@ namespace sharedFunctions
             return new Response(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
 
+        /// <summary>
+        /// lists all commands for the user id the controller registered with
+        /// </summary>
+        /// <returns>an array of commands</returns>
         public Command[] listCommands()
         {
             List<Command> commands = new List<Command>();
@@ -85,23 +128,43 @@ namespace sharedFunctions
             return commands.ToArray();
         }
 
+        /// <summary>
+        /// gets a specific command by its id
+        /// </summary>
+        /// <param name="cmdId">the commands id</param>
+        /// <returns>the command (if found on the server)</returns>
         public Command getCommand(int cmdId)
         {
             String[] inputString = serverIO("action=getCommand&ID=" + cmdId.ToString());
             String[] commandStr = inputString[0].Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
             return new Command(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
-
-        public Response[] listResponses()
+        
+        /// <summary>
+        /// gets a specific response by its id
+        /// </summary>
+        /// <param name="respId">the responses id</param>
+        /// <returns>the response (if found on the server)</returns>
+        public Response getResponseById(int respId)
         {
             throw new NotImplementedException();
         }
 
-        public Response getResponse(String respId)
+        /// <summary>
+        /// gets a specific response by its corresponding command
+        /// </summary>
+        /// <param name="respId">the commands id the response belongs to</param>
+        /// <returns>the response (if found on the server)</returns>
+        public Response getResponseByCmd(int cmdId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// executes an IO operaton with the given server uri
+        /// </summary>
+        /// <param name="payload">the payload to be sent</param>
+        /// <returns>an array of strings containing the servers response</returns>
         private String[] serverIO(String payload)
         {
             if (uri == null || uri == "")
