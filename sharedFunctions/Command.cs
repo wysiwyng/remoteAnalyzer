@@ -3,6 +3,9 @@ using System.IO;
 
 namespace sharedFunctions
 {
+    /// <summary>
+    /// a basic command object
+    /// </summary>
     public class Command
     {
         private int ID;
@@ -13,6 +16,11 @@ namespace sharedFunctions
         
         private bool read;
 
+        /// <summary>
+        /// creates a new command from its parameters
+        /// </summary>
+        /// <param name="_forTargetID">the targets id the command belongs to</param>
+        /// <param name="_command">the actual command</param>
         public Command(int _forTargetID, String _command)
         {
             forTargetID = _forTargetID;
@@ -20,16 +28,19 @@ namespace sharedFunctions
             read = false;
         }
 
+        /// <summary>
+        /// creates a command from a string received from the server
+        /// </summary>
+        /// <param name="inputString">the server response containing the commands parameters</param>
         public Command(String inputString)
         {
             createFromString(inputString);
         }
 
-        private void createFromStream(Stream valueStream)
-        {
-            createFromString(new StreamReader(valueStream).ReadToEnd());
-        }
-
+        /// <summary>
+        /// reads the commands values from a string and sets them 
+        /// </summary>
+        /// <param name="valueString">the string containing the commands data</param>
         private void createFromString(String valueString)
         {
             String[] inputSplit = valueString.Split(new Char[] { '\f' }, StringSplitOptions.RemoveEmptyEntries);
