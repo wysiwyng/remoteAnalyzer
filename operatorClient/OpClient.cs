@@ -50,7 +50,7 @@ namespace operatorClient
                 {
                     case "test":
                         Console.WriteLine(sharedFunctions.Encoder.stringToHex("\f"));
-                        Console.WriteLine(sharedFunctions.Encoder.stringToHex("false"));
+                        Console.WriteLine(sharedFunctions.Encoder.stringToHex("none"));
                         break;
                     case "getTargets":
                         sharedFunctions.Target[] targets = serverController.getTargets();
@@ -76,7 +76,8 @@ namespace operatorClient
                     case "getCmd":
                         Console.Write("id>");
                         String id = Console.ReadLine();
-                        Console.WriteLine(serverController.getCommand(Convert.ToInt32(id)).ToString());
+						sharedFunctions.Command cmd = serverController.getCommand(Convert.ToInt32 (id));
+						Console.WriteLine(cmd != null ? cmd.ToString() : "command not foud");
                         break;
                     case "resp":
                         Console.Write("cmd ID>");
@@ -85,6 +86,12 @@ namespace operatorClient
                         String response = Console.ReadLine();
                         Console.WriteLine(serverController.saveResponse(new Response(Convert.ToInt32(cmdID), Convert.ToInt32(UID), response)).ToString());
                         break;
+					case "getResp":
+						Console.Write("resp ID>");
+						String respID = Console.ReadLine ();
+						sharedFunctions.Response resp = serverController.getResponseById(Convert.ToInt32(respID));
+						Console.WriteLine(resp != null ? resp.ToString() : "response not foud");
+						break;
                     default:
                         Console.WriteLine("unsupported command");
                         break;

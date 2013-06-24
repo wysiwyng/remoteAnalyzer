@@ -5,7 +5,7 @@ include 'config.inc.php';
 function getCommandById($id) {
     $sql_reply = mysql_query("SELECT * FROM `commands` WHERE `ID`='" . $id . "'") or die("error fetching command, mysql said: " . mysql_error());
     if(mysql_num_rows($sql_reply) == 0) {
-        die("%command not found");
+        die("!command not found");
     }
     $row = mysql_fetch_array($sql_reply);
     echo $row['ID'];
@@ -22,7 +22,7 @@ function getCommandById($id) {
 function getResponseById($id) {
     $sql_reply = mysql_query("SELECT * FROM `responses` WHERE `ID`='" . $id . "'") or die("error fetching command, mysql said: " . mysql_error());
     if(mysql_num_rows($sql_reply) == 0) {
-        die("%response not found");
+        die("!response not found");
     }
     $row = mysql_fetch_array($sql_reply);
     echo $row['ID'];
@@ -39,7 +39,7 @@ function getResponseById($id) {
 function getResponseByCmdId($id) {
     $sql_reply = mysql_query("SELECT * FROM `responses` WHERE `cmdId`='" . $id . "'") or die("error fetching command, mysql said: " . mysql_error());
     if(mysql_num_rows($sql_reply) == 0) {
-        die("%response not found");
+        die("!response not found");
     }
     $row = mysql_fetch_array($sql_reply);
     echo $row['ID'];
@@ -100,7 +100,7 @@ if($_POST) {
         case "listCommands":
             $sql_reply = mysql_query("SELECT * FROM `commands` WHERE `to`='" . $_POST['UID'] . "'") or die("%error fetching commands, mysql said: " . mysql_error());
             if(mysql_num_rows($sql_reply) == 0) {
-                die("%no commands...\n");
+                die("%no commands\n");
             }
             while($row = mysql_fetch_array($sql_reply)) {
                 echo $row['ID'];
@@ -116,6 +116,12 @@ if($_POST) {
         case "getCommand":
             getCommandById($_POST['ID']);
             break;
+        case "getResponseById":
+		    getResponseById($_POST['ID']);
+		    break;
+		case "getResponseByCmdId":
+		    getResponseByCmdId($_POST['ID']);
+		    break;
     }    
 }
 else {

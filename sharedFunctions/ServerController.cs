@@ -133,9 +133,13 @@ namespace sharedFunctions
         /// </summary>
         /// <param name="cmdId">the commands id</param>
         /// <returns>the command (if found on the server)</returns>
-        public Command getCommand(int cmdId)
-        {
-            String[] inputString = serverIO("action=getCommand&ID=" + cmdId.ToString());
+        public Command getCommand (int cmdId)
+		{
+			String[] inputString = serverIO ("action=getCommand&ID=" + cmdId.ToString ());
+			if (inputString.Length == 0) 
+			{
+				return null;
+			}
             String[] commandStr = inputString[0].Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
             return new Command(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
@@ -147,7 +151,13 @@ namespace sharedFunctions
         /// <returns>the response (if found on the server)</returns>
         public Response getResponseById(int respId)
         {
-            throw new NotImplementedException();
+			String[] inputString = serverIO ("action=getResponseById&ID=" + respId.ToString());
+			if (inputString.Length == 0) 
+			{
+				return null;
+			}
+            String[] commandStr = inputString[0].Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return new Response(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
 
         /// <summary>
@@ -157,7 +167,13 @@ namespace sharedFunctions
         /// <returns>the response (if found on the server)</returns>
         public Response getResponseByCmd(int cmdId)
         {
-            throw new NotImplementedException();
+			String[] inputString = serverIO ("action=getResponseByCmdId&ID=" + cmdId.ToString());
+			if (inputString.Length == 0) 
+			{
+				return null;
+			}
+            String[] commandStr = inputString[0].Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return new Response(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
 
         /// <summary>
