@@ -212,3 +212,4 @@ pip-log.txt
 *.mo
 /serverBackend/config.inc.php
 /serverBackend/nbproject
+*.userprefs

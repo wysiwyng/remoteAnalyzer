@@ -31,7 +31,7 @@ namespace operatorClient
 
             serverController = new ServerController(op);
 
-            if (serverController.loadUri() == null)         //load and check server controller uri, if not set prompt for it
+            if (serverController.loadUri() == null || serverController.loadUri () == "")         //load and check server controller uri, if not set prompt for it
             {
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
