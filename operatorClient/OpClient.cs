@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using sharedFunctions;
 
 namespace operatorClient
@@ -14,9 +15,14 @@ namespace operatorClient
 
         private static Operator op;
 
+		private static Queue<sharedFunctions.Command> cmdQueue;
+
         static void Main(string[] args)
         {
             lastOnlineTime = DateTime.Now;
+
+			cmdQueue = new Queue<sharedFunctions.Command>();
+
             UID = sharedFunctions.IdManager.loadUID();      //read the uid from app settings
             if (UID == -1)                                  //check it for validity, if invalid create a new uid and save
             {

@@ -205,6 +205,10 @@ namespace sharedFunctions
                 {
                     Console.WriteLine("debug: " + str);
                 }
+				else if (str.StartsWith("!")) 
+				{
+					Console.WriteLine("error: " + str);
+				}
                 else
                 {
                     responseList.Add(str);
