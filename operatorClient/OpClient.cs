@@ -15,19 +15,15 @@ namespace operatorClient
 
         private static Operator op;
 
-		private static Queue<sharedFunctions.Command> cmdQueue;
-
         static void Main(string[] args)
         {
             lastOnlineTime = DateTime.Now;
 
-			cmdQueue = new Queue<sharedFunctions.Command>();
-
-            UID = sharedFunctions.IdManager.loadUID();      //read the uid from app settings
+            UID = IdManager.loadUID();      //read the uid from app settings
             if (UID == -1)                                  //check it for validity, if invalid create a new uid and save
             {
-                UID = sharedFunctions.IdManager.createUID();
-                sharedFunctions.IdManager.saveUID(UID);
+                UID = IdManager.createUID();
+                IdManager.saveUID(UID);
             }
 
             Console.WriteLine("remoteAnalyzerMk2 operator client running, id is: " + UID);
@@ -55,12 +51,13 @@ namespace operatorClient
                 switch (input)                              //and checks what you entered
                 {
                     case "test":
-                        Console.WriteLine(sharedFunctions.Encoder.stringToHex("\f"));
-                        Console.WriteLine(sharedFunctions.Encoder.stringToHex("none"));
+                        Console.WriteLine(Encoder.stringToHex("\f"));
+                        Console.WriteLine(Encoder.stringToHex("none"));
+                        Console.WriteLine(DateTime.Now.ToString());
                         break;
                     case "getTargets":
-                        sharedFunctions.Target[] targets = serverController.getTargets();
-                        foreach (sharedFunctions.Target target in targets)
+                        Target[] targets = serverController.getTargets();
+                        foreach (Target target in targets)
                         {
                             Console.WriteLine(target.ToString());
                         }
@@ -73,8 +70,8 @@ namespace operatorClient
                         Console.WriteLine(serverController.saveCommand(new Command(Convert.ToInt32(to), data)).ToString()); //creates a new command, saves it on the server and displays it again in the prompt
                         break;
                     case "listCmds":
-                        sharedFunctions.Command[] commands = serverController.listCommands();
-                        foreach (sharedFunctions.Command command in commands)
+                        Command[] commands = serverController.listCommands();
+                        foreach (Command command in commands)
                         {
                             Console.WriteLine(command.ToString());
                         }
@@ -82,7 +79,7 @@ namespace operatorClient
                     case "getCmd":
                         Console.Write("id>");
                         String id = Console.ReadLine();
-						sharedFunctions.Command cmd = serverController.getCommand(Convert.ToInt32 (id));
+						Command cmd = serverController.getCommand(Convert.ToInt32 (id));
 						Console.WriteLine(cmd != null ? cmd.ToString() : "command not foud");
                         break;
                     case "resp":
@@ -95,7 +92,7 @@ namespace operatorClient
 					case "getResp":
 						Console.Write("resp ID>");
 						String respID = Console.ReadLine ();
-						sharedFunctions.Response resp = serverController.getResponseById(Convert.ToInt32(respID));
+						Response resp = serverController.getResponseById(Convert.ToInt32(respID));
 						Console.WriteLine(resp != null ? resp.ToString() : "response not foud");
 						break;
                     default:
