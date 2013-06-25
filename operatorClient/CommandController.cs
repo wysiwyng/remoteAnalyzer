@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using sharedFunctions;
 
 namespace operatorClient
@@ -10,11 +9,17 @@ namespace operatorClient
     {
         private Queue<Command> cmdQueue;
         private ServerController serverController;
+        private Timer timer;
+
+        public event EventHandler<NewResponseEventArgs> newResponseReceived;
 
         public CommandController(IOperator op)
         {
             cmdQueue = new Queue<Command>();
             serverController = new ServerController(op);
+            timer = new Timer(1000);
+            timer.AutoReset = true;
+            timer.Elapsed += timer_Elapsed;
 
             if (serverController.getUri() == null || serverController.getUri() == "")         //load and check server controller uri, if not set prompt for it
             {
@@ -24,6 +29,29 @@ namespace operatorClient
             }
 
             serverController.register();
+
+            timer.Start();
+        }
+
+        protected virtual void onNewResponseReceived(NewResponseEventArgs e)
+        {
+            EventHandler<NewResponseEventArgs> handler = newResponseReceived;
+            if (handler != null) handler(this, e);
+        }
+
+        private void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (cmdQueue.Count == 0) return;
+            Command tempCmd = cmdQueue.Peek();
+            Response tempResp = serverController.getResponseByCmd(tempCmd.getID());
+            if (tempResp != null)
+            {
+                cmdQueue.Dequeue();
+                Console.WriteLine("response received");
+                NewResponseEventArgs args = new NewResponseEventArgs();
+                args.newResponse = tempResp;
+                args.reveiceTime = DateTime.Now;
+            }
         }
 
         public void saveCommand(Command command)
