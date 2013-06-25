@@ -19,7 +19,7 @@ namespace operatorClient
         {
             lastOnlineTime = DateTime.Now;
 
-            UID = IdManager.loadUID();      //read the uid from app settings
+            UID = IdManager.loadUID();                      //read the uid from app settings
             if (UID == -1)                                  //check it for validity, if invalid create a new uid and save
             {
                 UID = IdManager.createUID();

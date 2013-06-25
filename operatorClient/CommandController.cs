@@ -29,6 +29,7 @@ namespace operatorClient
             cmdQueue = new Queue<Command>();
             serverController = new ServerController(op);
             timer = new Timer(1000);
+
             timer.AutoReset = true;
             timer.Elapsed += timer_Elapsed;
 
@@ -83,5 +84,13 @@ namespace operatorClient
             cmdQueue.Enqueue(serverController.saveCommand(command));
         }
 
+        /// <summary>
+        /// sets the interval of the internal timer
+        /// </summary>
+        /// <param name="interval">the new interval</param>
+        public void setTimerInterval(double interval)
+        {
+            timer.Interval = interval;
+        }
     }
 }
