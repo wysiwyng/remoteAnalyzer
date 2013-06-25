@@ -13,6 +13,8 @@ namespace operatorClient
 
         private static ServerController serverController;   //a serverController
 
+        private static CommandController commandController;
+
         private static Operator op;
 
         static void Main(string[] args)
@@ -33,11 +35,11 @@ namespace operatorClient
 
             serverController = new ServerController(op);
 
-            if (serverController.loadUri() == null || serverController.loadUri () == "")         //load and check server controller uri, if not set prompt for it
+            if (serverController.getUri() == null || serverController.getUri() == "")         //load and check server controller uri, if not set prompt for it
             {
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
-                serverController = new ServerController(op);
+                serverController.setUri(serverController.loadUri());
             }
 
             serverController.register();                    //register the uid
@@ -53,7 +55,6 @@ namespace operatorClient
                     case "test":
                         Console.WriteLine(Encoder.stringToHex("\f"));
                         Console.WriteLine(Encoder.stringToHex("none"));
-                        Console.WriteLine(DateTime.Now.ToString());
                         break;
                     case "getTargets":
                         Target[] targets = serverController.getTargets();

@@ -37,6 +37,15 @@ namespace sharedFunctions
             uri = loadUri();
         }
 
+        public String getUri()
+        {
+            return uri;
+        }
+
+        public void setUri(String _uri)
+        {
+            uri = _uri;
+        }
         /// <summary>
         /// loads the saved server backend uri from application settings
         /// </summary>
