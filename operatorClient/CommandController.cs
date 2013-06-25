@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using sharedFunctions;
 
 namespace operatorClient
@@ -47,7 +48,6 @@ namespace operatorClient
             if (tempResp != null)
             {
                 cmdQueue.Dequeue();
-                Console.WriteLine("response received");
                 NewResponseEventArgs args = new NewResponseEventArgs();
                 args.newResponse = tempResp;
                 args.reveiceTime = DateTime.Now;

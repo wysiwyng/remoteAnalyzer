@@ -11,8 +11,6 @@ namespace operatorClient
         private static DateTime lastOnlineTime;     //the last online time
         private static int permissions;             //the permissions of this operator, not used
 
-        private static ServerController serverController;   //a serverController
-
         private static CommandController commandController;
 
         private static Operator op;

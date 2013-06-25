@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Net;
+using System.Diagnostics;
 
 namespace sharedFunctions
 {
@@ -192,6 +193,7 @@ namespace sharedFunctions
         /// <returns>an array of strings containing the servers response</returns>
         private String[] serverIO(String payload)
         {
+            Debug.WriteLine("starting server io, payload is: " + payload);
             if (uri == null || uri == "")
             {
                 throw new IOException("server backend uri not set!");
@@ -212,11 +214,11 @@ namespace sharedFunctions
             {
                 if (str.StartsWith("%"))
                 {
-                    Console.WriteLine("debug: " + str);
+                    Debug.WriteLine("debug: " + str);
                 }
 				else if (str.StartsWith("!")) 
 				{
-					Console.WriteLine("error: " + str);
+                    Debug.WriteLine("error: " + str);
 				}
                 else
                 {
