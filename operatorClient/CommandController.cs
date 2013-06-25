@@ -16,6 +16,15 @@ namespace operatorClient
         private Timer timer;
 
         /// <summary>
+        /// gets or sets the interval of the internal timer
+        /// </summary>
+        public double timerInterval
+        {
+            get { return timer.Interval; }
+            set { timer.Interval = value; }
+        }
+
+        /// <summary>
         /// the event fired when a new response to a queued command is received
         /// </summary>
         public event EventHandler<NewResponseEventArgs> newResponseReceived;
@@ -33,11 +42,11 @@ namespace operatorClient
             timer.AutoReset = true;
             timer.Elapsed += timer_Elapsed;
 
-            if (serverController.getUri() == null || serverController.getUri() == "")         //load and check server controller uri, if not set prompt for it
+            if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
             {
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
-                serverController.setUri(serverController.loadUri());
+                serverController.URI = serverController.loadUri();
             }
 
             serverController.register();
@@ -64,12 +73,12 @@ namespace operatorClient
         {
             if (cmdQueue.Count == 0) return;
             Command tempCmd = cmdQueue.Peek();
-            Response tempResp = serverController.getResponseByCmd(tempCmd.getID());
+            Response tempResp = serverController.getResponseByCmd(tempCmd.ID);
             if (tempResp != null)
             {
                 cmdQueue.Dequeue();
                 NewResponseEventArgs args = new NewResponseEventArgs();
-                args.newResponse = tempResp;
+                args.Response = tempResp;
                 args.reveiceTime = DateTime.Now;
                 onNewResponseReceived(args);
             }
@@ -82,15 +91,6 @@ namespace operatorClient
         public void saveCommand(Command command)
         {
             cmdQueue.Enqueue(serverController.saveCommand(command));
-        }
-
-        /// <summary>
-        /// sets the interval of the internal timer
-        /// </summary>
-        /// <param name="interval">the new interval</param>
-        public void setTimerInterval(double interval)
-        {
-            timer.Interval = interval;
         }
     }
 }

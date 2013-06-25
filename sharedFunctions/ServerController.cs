@@ -14,7 +14,19 @@ namespace sharedFunctions
     {
         private String id;
         private String type;
+
         private String uri;
+        public String URI
+        {
+            get
+            {
+                return uri;
+            }
+            set
+            {
+                uri = value;
+            }
+        }
 
         /// <summary>
         /// the constructor for a ServerController object
@@ -22,7 +34,7 @@ namespace sharedFunctions
         /// <param name="op">an operator for determining the id</param>
         public ServerController(IOperator op)
         {
-            id = Encoder.stringToHex(op.getUID().ToString());
+            id = Encoder.stringToHex(op.UID.ToString());
             type = "op";
             uri = loadUri();
         }
@@ -33,20 +45,11 @@ namespace sharedFunctions
         /// <param name="target">a target for determining the id</param>
         public ServerController(ITarget target)
         {
-            id = Encoder.stringToHex(target.getUID().ToString());
+            id = Encoder.stringToHex(target.UID.ToString());
             type = "target";
             uri = loadUri();
         }
 
-        public String getUri()
-        {
-            return uri;
-        }
-
-        public void setUri(String _uri)
-        {
-            uri = _uri;
-        }
         /// <summary>
         /// loads the saved server backend uri from application settings
         /// </summary>
@@ -106,7 +109,7 @@ namespace sharedFunctions
         /// <returns>the saved command as the server saved it</returns>
         public Command saveCommand(Command command)
         {
-            String[] inputString = serverIO("action=saveCommand&to=" + Encoder.stringToHex(command.getForTargetID().ToString()) + "&cmd=" + Encoder.stringToHex(command.getCommandData()));
+            String[] inputString = serverIO("action=saveCommand&to=" + Encoder.stringToHex(command.ForTargetID.ToString()) + "&cmd=" + Encoder.stringToHex(command.CommandData));
             String[] commandStr = inputString[0].Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
             return new Command(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }
@@ -118,7 +121,7 @@ namespace sharedFunctions
         /// <returns>the saved response as the server saved it</returns>
         public Response saveResponse(Response response)
         {
-            String[] inputString = serverIO("action=saveResponse&cmdId=" + Encoder.stringToHex(response.getForCommandID().ToString()) + "&response=" + Encoder.stringToHex(response.getResponseData()));
+            String[] inputString = serverIO("action=saveResponse&cmdId=" + Encoder.stringToHex(response.ForCommandID.ToString()) + "&response=" + Encoder.stringToHex(response.ResponseData));
             String[] commandStr = inputString[0].Split(new Char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
             return new Response(commandStr[0] + "\f" + Encoder.hexToString(commandStr[1]));
         }

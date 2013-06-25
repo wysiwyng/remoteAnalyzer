@@ -6,10 +6,13 @@ namespace operatorClient
 {
     class OpClient : IOperator
     {
-        private static int ID;                      //the database id
-        private static int UID;                     //the unique uid
-        private static DateTime lastOnlineTime;     //the last online time
-        private static int permissions;             //the permissions of this operator, not used
+        private static int id;                      //the database id
+        public int ID { get { return id; } }
+
+        private static int uid;                     //the unique uid
+        public int UID { get { return uid; } }
+
+        public DateTime LastOnlineTime { get { return DateTime.Now; } }
 
         private static CommandController commandController;
 
@@ -17,19 +20,17 @@ namespace operatorClient
 
         static void Main(string[] args)
         {
-            lastOnlineTime = DateTime.Now;
-
-            UID = IdManager.loadUID();                      //read the uid from app settings
-            if (UID == -1)                                  //check it for validity, if invalid create a new uid and save
+            uid = IdManager.loadUID();                      //read the uid from app settings
+            if (uid == -1)                                  //check it for validity, if invalid create a new uid and save
             {
-                UID = IdManager.createUID();
-                IdManager.saveUID(UID);
+                uid = IdManager.createUID();
+                IdManager.saveUID(uid);
             }
 
-            Console.WriteLine("remoteAnalyzerMk2 operator client running, id is: " + UID);
+            Console.WriteLine("remoteAnalyzerMk2 operator client running, id is: " + uid);
             Console.WriteLine("registering operator...");
 
-            op = new Operator(0, UID, DateTime.Now, 0);     //create new operator object for the serverController to work with
+            op = new Operator(0, uid, DateTime.Now);     //create new operator object for the serverController to work with
 
             commandController = new CommandController(op);
 
@@ -61,28 +62,8 @@ namespace operatorClient
         static void commandController_newResponseReceived(object sender, NewResponseEventArgs e)
         {
             Console.WriteLine("received response for queued command");
-            Console.WriteLine(e.newResponse.ToString());
+            Console.WriteLine(e.Response.ToString());
             Console.Write("\r\nop>");
-        }
-
-        public int getPermissions()
-        {
-            return permissions;
-        }
-
-        public int getID()
-        {
-            return ID;
-        }
-
-        public int getUID()
-        {
-            return UID;
-        }
-
-        public DateTime getLastOnlineTime()
-        {
-            return lastOnlineTime;
         }
     }
 }

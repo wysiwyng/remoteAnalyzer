@@ -4,13 +4,18 @@ namespace sharedFunctions
 {
     public class Target : ITarget
     {
-        private int UID;
-        private int ID;
+        private int uid;
+        public int UID { get { return uid; } }
+
+        private int id;
+        public int ID { get { return id; } }
+
         private DateTime lastOnlineTime;
+        public DateTime LastOnlineTime { get { return lastOnlineTime; } }
 
         public Target(int _UID, DateTime _lastOnlineTime)
         {
-            UID = _UID;
+            uid = _UID;
             lastOnlineTime = _lastOnlineTime;
         }
 
@@ -22,29 +27,14 @@ namespace sharedFunctions
         public void createFromString(String inputString)
         {
             String[] inputSplit = inputString.Split(new Char[] { '\f' }, StringSplitOptions.RemoveEmptyEntries);
-            ID = Convert.ToInt32(inputSplit[0]);
-            UID = Convert.ToInt32(inputSplit[1]);
+            id = Convert.ToInt32(inputSplit[0]);
+            uid = Convert.ToInt32(inputSplit[1]);
             lastOnlineTime = DateTime.Parse(inputSplit[2]);
-        }
-
-        public int getID()
-        {
-            return ID;
-        }
-
-        public int getUID()
-        {
-            return UID;
-        }
-
-        public DateTime getLastOnlineTime()
-        {
-            return lastOnlineTime;
         }
 
         public override String ToString()
         {
-            return "\ntarget id: " + ID.ToString() + "\n UID: " + UID.ToString() + "\n lastOnlineTime: " + lastOnlineTime.ToString();
+            return "\ntarget id: " + id.ToString() + "\n UID: " + uid.ToString() + "\n lastOnlineTime: " + lastOnlineTime.ToString();
         }
     }
 }

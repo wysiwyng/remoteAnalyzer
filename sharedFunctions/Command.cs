@@ -8,13 +8,20 @@ namespace sharedFunctions
     /// </summary>
     public class Command
     {
-        private int ID;
+        private int id;
+        public int ID { get { return id; } }
+
         private int fromID;
+        public int FromID { get { return fromID; } }
+
         private int forTargetID;
-        
-        private String command;
+        public int ForTargetID { get { return forTargetID; } }
+
+        private String commandData;
+        public String CommandData { get { return commandData; } }
         
         private bool read;
+        public bool Read { get { return read; } }
 
         /// <summary>
         /// creates a new command from its parameters
@@ -24,7 +31,7 @@ namespace sharedFunctions
         public Command(int _forTargetID, String _command)
         {
             forTargetID = _forTargetID;
-            command = _command;
+            commandData = _command;
             read = false;
         }
 
@@ -44,41 +51,16 @@ namespace sharedFunctions
         private void createFromString(String valueString)
         {
             String[] inputSplit = valueString.Split(new Char[] { '\f' }, StringSplitOptions.RemoveEmptyEntries);
-            ID = Convert.ToInt32(inputSplit[0]);
+            id = Convert.ToInt32(inputSplit[0]);
             fromID = Convert.ToInt32(inputSplit[1]);
             forTargetID = Convert.ToInt32(inputSplit[2]);
             read = Convert.ToBoolean(inputSplit[3]);
-            command = inputSplit[4];
+            commandData = inputSplit[4];
         }        
-
-        public int getID()
-        {
-            return ID;
-        }
-
-        public int getFromID()
-        {
-            return fromID;
-        }
-
-        public int getForTargetID()
-        {
-            return forTargetID;
-        }
-
-        public String getCommandData()
-        {
-            return command;
-        }
-
-        public bool getReadStatus()
-        {
-            return read;
-        }
 
         public override String ToString()
         {
-            return "\ncommand id: " + ID.ToString() + "\n fromID: " + fromID.ToString() + "\n forTargetID: " + forTargetID.ToString() + "\n " + command + "\n read: " + read;
+            return "\ncommand id: " + id.ToString() + "\n fromID: " + fromID.ToString() + "\n forTargetID: " + forTargetID.ToString() + "\n " + commandData + "\n read: " + read;
         }
 
     }

@@ -4,19 +4,26 @@ namespace sharedFunctions
 {
     public class Response
     {
-        private int ID;
+        private int id;
+        public int ID { get { return id; } }
+
         private int forCommandID;
-        private int UID;
-        
-        private String response;
-        
+        public int ForCommandID { get { return forCommandID; } }
+
+        private int uid;
+        public int UID { get { return uid; } }
+
+        private String responseData;
+        public String ResponseData { get { return responseData; } }
+
         private bool read;
+        public bool Read { get { return read; } }
 
         public Response(int _forCommandID, int _UID, String _response)
         {
-            UID = _UID;
+            uid = _UID;
             forCommandID = _forCommandID;
-            response = _response;
+            responseData = _response;
             read = false;
         }
 
@@ -28,36 +35,16 @@ namespace sharedFunctions
         private void setValues(String inputString)
         {
             String[] inputSplit = inputString.Split(new Char[] { '\f' });
-            ID = Convert.ToInt32(inputSplit[0]);
+            id = Convert.ToInt32(inputSplit[0]);
             forCommandID = Convert.ToInt32(inputSplit[1]);
-            UID = Convert.ToInt32(inputSplit[2]);
-            response = inputSplit[4];
+            uid = Convert.ToInt32(inputSplit[2]);
+            responseData = inputSplit[4];
             read = Convert.ToBoolean(inputSplit[3]);
-        }        
-
-        public int getID()
-        {
-            return ID;
-        }
-
-        public int getForCommandID()
-        {
-            return forCommandID;
-        }
-
-        public String getResponseData()
-        {
-            return response;
-        }
-
-        public bool getReadStatus()
-        {
-            return read;
         }
 
         public override String ToString()
         {
-            return "\nresponse id: " + ID.ToString() + "\n forCmdID: " + forCommandID.ToString() + "\n TargetID: " + UID.ToString() + "\n " + response + "\n read: " + read;
+            return "\nresponse id: " + id.ToString() + "\n forCmdID: " + forCommandID.ToString() + "\n TargetID: " + uid.ToString() + "\n " + responseData + "\n read: " + read;
         }
     }
 }

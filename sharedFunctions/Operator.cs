@@ -4,37 +4,33 @@ namespace sharedFunctions
 {
     public class Operator:IOperator
     {
-        private int ID;
-        private int UID;
+        private int id;
+        public int ID { get { return id; } }
+        private int uid;
+        public int UID { get { return uid; } }
         private DateTime lastOnlineTime;
-        private int permissions;
+        public DateTime LastOnlineTime { get { return lastOnlineTime; } }
 
-        public Operator(int _id, int _uid, DateTime _lastOnlineTime, int _permissions)
+        public Operator(int _id, int _uid, DateTime _lastOnlineTime)
         {
-            ID = _id;
-            UID = _uid;
+            id = _id;
+            uid = _uid;
             lastOnlineTime = _lastOnlineTime;
-            permissions = _permissions;
         }
 
         public int getID()
         {
-            return ID;
+            return id;
         }
 
         public int getUID()
         {
-            return UID;
+            return uid;
         }
 
         public DateTime getLastOnlineTime()
         {
             return lastOnlineTime;
-        }
-
-        public int getPermissions()
-        {
-            return permissions;
         }
     }
 }
