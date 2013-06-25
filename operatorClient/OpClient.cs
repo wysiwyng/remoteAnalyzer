@@ -33,6 +33,8 @@ namespace operatorClient
 
             commandController = new CommandController(op);
 
+            commandController.newResponseReceived += commandController_newResponseReceived;
+
             String input = "";
 
             do
@@ -54,6 +56,13 @@ namespace operatorClient
                 }
             }
             while (input != "exit");
+        }
+
+        static void commandController_newResponseReceived(object sender, NewResponseEventArgs e)
+        {
+            Console.WriteLine("received response for queued command");
+            Console.WriteLine(e.newResponse.ToString());
+            Console.Write("\r\nop>");
         }
 
         public int getPermissions()
