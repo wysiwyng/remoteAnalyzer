@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Timers;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using sharedFunctions;
 
 namespace targetClient
@@ -13,8 +14,17 @@ namespace targetClient
 
         private static Timer timer;
 
+        private static Queue<Command> cmdQueue;
+
         static void Main(string[] args)
         {
+            cmdQueue = new Queue<Command>();
+
+            timer = new Timer();
+
+            timer.Interval = 1000;
+            timer.Tick += timer_Tick;
+
             int uid = IdManager.loadUID();
             if (uid == -1)
             {
@@ -22,13 +32,25 @@ namespace targetClient
                 IdManager.saveUID(uid);
             }
 
+            Debug.WriteLine("id: " + uid.ToString());
+
             target = new Target(uid, DateTime.Now);
 
             serverController = new ServerController(target);
 
             serverController.register();
 
+            timer.Start();
+
             Debug.WriteLine("blub");
+
+            Application.Run();
         }
+
+        static void timer_Tick(object sender, EventArgs e)
+        {
+            Debug.WriteLine("tick");
+        }
+
     }
 }
