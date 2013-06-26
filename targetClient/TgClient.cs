@@ -1,28 +1,34 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Timers;
 using sharedFunctions;
 
 namespace targetClient
 {
-    class TgClient : ITarget
+    class TgClient
     {
+        private static ServerController serverController;
+
+        private static Target target;
+
+        private static Timer timer;
+
         static void Main(string[] args)
         {
+            int uid = IdManager.loadUID();
+            if (uid == -1)
+            {
+                uid = IdManager.createUID();
+                IdManager.saveUID(uid);
+            }
 
-        }
+            target = new Target(uid, DateTime.Now);
 
-        public int getUID()
-        {
-            throw new NotImplementedException();
-        }
+            serverController = new ServerController(target);
 
-        public int getID()
-        {
-            throw new NotImplementedException();
-        }
+            serverController.register();
 
-        public DateTime getLastOnlineTime()
-        {
-            throw new NotImplementedException();
+            Debug.WriteLine("blub");
         }
     }
 }
