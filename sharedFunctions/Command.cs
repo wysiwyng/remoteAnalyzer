@@ -9,18 +9,38 @@ namespace sharedFunctions
     public class Command
     {
         private int id;
+
+        /// <summary>
+        /// the command's database id
+        /// </summary>
         public int ID { get { return id; } }
 
         private int fromID;
+
+        /// <summary>
+        /// the unique sender's id
+        /// </summary>
         public int FromID { get { return fromID; } }
 
         private int forTargetID;
+
+        /// <summary>
+        /// the unique receiver id
+        /// </summary>
         public int ForTargetID { get { return forTargetID; } }
 
         private String commandData;
+
+        /// <summary>
+        /// the command's actual data
+        /// </summary>
         public String CommandData { get { return commandData; } }
         
         private bool read;
+
+        /// <summary>
+        /// the command's read status
+        /// </summary>
         public bool Read { get { return read; } }
 
         /// <summary>

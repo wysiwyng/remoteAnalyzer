@@ -4,23 +4,15 @@ using sharedFunctions;
 
 namespace operatorClient
 {
-    class OpClient : IOperator
+    class OpClient
     {
-        private static int id;                      //the database id
-        public int ID { get { return id; } }
-
-        private static int uid;                     //the unique uid
-        public int UID { get { return uid; } }
-
-        public DateTime LastOnlineTime { get { return DateTime.Now; } }
-
         private static CommandController commandController;
 
         private static Operator op;
 
         static void Main(string[] args)
         {
-            uid = IdManager.loadUID();                      //read the uid from app settings
+            int uid = IdManager.loadUID();                      //read the uid from app settings
             if (uid == -1)                                  //check it for validity, if invalid create a new uid and save
             {
                 uid = IdManager.createUID();
@@ -35,6 +27,8 @@ namespace operatorClient
             commandController = new CommandController(op);
 
             commandController.newResponseReceived += commandController_newResponseReceived;
+
+            Console.WriteLine("registered and running");
 
             String input = "";
 

@@ -16,6 +16,10 @@ namespace sharedFunctions
         private String type;
 
         private String uri;
+
+        /// <summary>
+        /// the server backend uri
+        /// </summary>
         public String URI
         {
             get
