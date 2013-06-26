@@ -200,6 +200,7 @@ namespace sharedFunctions
         /// <returns>an array of strings containing the servers response</returns>
         private String[] serverIO(String payload)
         {
+            payload += "&UID=" + id + "&timestamp=" + Encoder.stringToHex(DateTime.Now.ToString());
             Debug.WriteLine("starting server io, payload is: " + payload);
             if (uri == null || uri == "")
             {
@@ -209,12 +210,18 @@ namespace sharedFunctions
             webRequest.Method = "POST";                                         //set method to post
             webRequest.ContentType = "application/x-www-form-urlencoded";       //and mime type to application
 
-            byte[] byteArray = Encoding.UTF8.GetBytes(payload + "&UID=" + id + "&timestamp=" + Encoder.stringToHex(DateTime.Now.ToString()));   //convert payload to byte array
+            byte[] byteArray = Encoding.UTF8.GetBytes(payload);   //convert payload to byte array
+            
             webRequest.ContentLength = byteArray.Length;                            //set content length
             webRequest.GetRequestStream().Write(byteArray, 0, byteArray.Length);    //write the byte array to the upload stream (transfer data to server)
             webRequest.GetRequestStream().Close();                                  //close upload stream
 
-            String[] responseSplit = new StreamReader(webRequest.GetResponse().GetResponseStream()).ReadToEnd().Split(new Char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            Stream responseStream = webRequest.GetResponse().GetResponseStream();
+            
+            String[] responseSplit = new StreamReader(responseStream).ReadToEnd().Split(new Char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            responseStream.Close();
+
             List<String> responseList = new List<String>();
 
             foreach (String str in responseSplit)           //filter out debug messages
