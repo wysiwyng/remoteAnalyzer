@@ -29,7 +29,7 @@ namespace sharedFunctions
             String[] inputSplit = inputString.Split(new Char[] { '\f' }, StringSplitOptions.RemoveEmptyEntries);
             id = Convert.ToInt32(inputSplit[0]);
             uid = Convert.ToInt32(inputSplit[1]);
-            lastOnlineTime = DateTime.Parse(inputSplit[2]);
+            lastOnlineTime = DateTime.FromBinary(Convert.ToInt64(inputSplit[2]));
         }
 
         public override String ToString()

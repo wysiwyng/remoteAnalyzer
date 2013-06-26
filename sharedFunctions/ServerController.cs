@@ -200,7 +200,7 @@ namespace sharedFunctions
         /// <returns>an array of strings containing the servers response</returns>
         private String[] serverIO(String payload)
         {
-            payload += "&UID=" + id + "&timestamp=" + Encoder.stringToHex(DateTime.Now.ToString());
+            payload += "&UID=" + id + "&timestamp=" + Encoder.stringToHex(DateTime.Now.ToBinary().ToString());
             Debug.WriteLine("starting server io, payload is: " + payload);
             if (uri == null || uri == "")
             {

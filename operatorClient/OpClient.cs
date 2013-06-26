@@ -45,6 +45,13 @@ namespace operatorClient
                         String cmdData = Console.ReadLine();
                         commandController.saveCommand(new Command(toUID, cmdData));
                         break;
+                    case "getTargets":
+                        Target[] targets = commandController.ServerController.getTargets();
+                        foreach (Target target in targets)
+                        {
+                            Console.WriteLine(target.ToString());
+                        }
+                        break;
                     default:
                         Console.WriteLine("unsupported command");
                         break;

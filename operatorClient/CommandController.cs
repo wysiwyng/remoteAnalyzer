@@ -13,12 +13,17 @@ namespace operatorClient
     {
         private Queue<Command> cmdQueue;
         private ServerController serverController;
+
+        /// <summary>
+        /// gets the underlying serverController
+        /// </summary>
+        public ServerController ServerController { get { return serverController; } }
         private Timer timer;
 
         /// <summary>
         /// gets or sets the interval of the internal timer
         /// </summary>
-        public double timerInterval
+        public double TimerInterval
         {
             get { return timer.Interval; }
             set { timer.Interval = value; }
