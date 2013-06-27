@@ -4,7 +4,7 @@ remoteAnalyzer
 a project to examine the possibilities of remote analyzing computers via c#, php and mysql
 
 compiled using VS2012 and .NET Framework 4.5 when using the original solution file
-compiles with mono 2.10.8+ and monodevelop 3.0.3.2+ when using the mono solution file (seems to be on another machine, will be added asap)
+compiles with mono 2.10.8+ and monodevelop 3.0.3.2+ when using the mono solution file
 
 
 usage
