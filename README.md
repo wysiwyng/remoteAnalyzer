@@ -14,8 +14,9 @@ usage
 
 1. set up a web server with php and mysql, create the tables using the non-existing create_mysql_tables script
 2. load the vs solution and compile
-3. start operatorClient program/project
-4. enter the url to the above server
-5. use some of the commands you find in the main routine
-6. ???
-7. profit!
+3. send somebody the targetClient
+5. start operatorClient program/project
+6. enter the url to the above server
+7. use some of the commands you find in the main routine
+8. ???
+9. profit!
