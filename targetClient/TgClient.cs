@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Threading;
 using sharedFunctions;
 
 namespace targetClient
@@ -12,17 +13,21 @@ namespace targetClient
 
         private static Target target;
 
-        private static Timer timer;
+        private static System.Windows.Forms.Timer timer;
 
         private static Queue<Command> cmdQueue;
 
+        private static AutoResetEvent newData;
+
         static void Main(string[] args)
         {
+            newData = new AutoResetEvent(false);
+
             cmdQueue = new Queue<Command>();
 
-            timer = new Timer();
+            timer = new System.Windows.Forms.Timer();
 
-            timer.Interval = 1000;
+            timer.Interval = 5000;
             timer.Tick += timer_Tick;
 
             int uid = IdManager.loadUID();
@@ -44,11 +49,32 @@ namespace targetClient
 
             Debug.WriteLine("blub");
 
+            Thread mainThread = new Thread(new ThreadStart(cmdInterpreter));
+            mainThread.Start();
+
             Application.Run();
+
+        }
+
+        static void cmdInterpreter()
+        {
+            while (true)
+            {
+                newData.WaitOne();
+                Debug.WriteLine("new data appeared");
+                Debug.WriteLine(cmdQueue.Dequeue().ToString());
+            }
         }
 
         static void timer_Tick(object sender, EventArgs e)
         {
+            Command[] commands = serverController.listCommands();
+            foreach (Command command in commands)
+            {
+                cmdQueue.Enqueue(serverController.getCommand(command.ID));
+                Debug.WriteLine("enqueued command no " + command.ID.ToString());
+            }
+            if (cmdQueue.Count > 0) newData.Set();
             Debug.WriteLine("tick");
         }
 
