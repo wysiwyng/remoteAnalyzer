@@ -61,8 +61,10 @@ namespace targetClient
             while (true)
             {
                 newData.WaitOne();
+				Command command = cmdQueue.Dequeue();
                 Debug.WriteLine("new data appeared");
-                Debug.WriteLine(cmdQueue.Dequeue().ToString());
+                Debug.WriteLine(command.ToString());
+				serverController.saveResponse(new Response(command.ID, "yaay i got a command"));
             }
         }
 
