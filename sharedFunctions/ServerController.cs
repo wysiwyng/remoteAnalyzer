@@ -21,15 +21,9 @@ namespace sharedFunctions
         /// the server backend uri
         /// </summary>
         public String URI
-        {
-            get
-            {
-                return uri;
-            }
-            set
-            {
-                uri = value;
-            }
+		{
+            get { return uri; }
+            set { uri = value; }
         }
 
         /// <summary>
