@@ -33,6 +33,6 @@ Global
 		{A4F9FD1F-B61C-4F84-B424-B474910902FD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = operatorClient\operatorClient.csproj
+		StartupItem = targetClient\targetClient.csproj
 	EndGlobalSection
 EndGlobal

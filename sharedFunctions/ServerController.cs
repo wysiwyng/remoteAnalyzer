@@ -21,15 +21,9 @@ namespace sharedFunctions
         /// the server backend uri
         /// </summary>
         public String URI
-        {
-            get
-            {
-                return uri;
-            }
-            set
-            {
-                uri = value;
-            }
+		{
+            get { return uri; }
+            set { uri = value; }
         }
 
         /// <summary>
@@ -184,7 +178,7 @@ namespace sharedFunctions
         /// <returns>the response (if found on the server)</returns>
         public Response getResponseByCmd(int cmdId)
         {
-			String[] inputString = serverIO ("action=getResponseByCmdId&ID=" + cmdId.ToString());
+			String[] inputString = serverIO ("action=getResponseByCmdId&ID=" + Encoder.stringToHex(cmdId.ToString()));
 			if (inputString.Length == 0) 
 			{
 				return null;
