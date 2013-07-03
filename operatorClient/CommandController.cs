@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Timers;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Diagnostics;
 using sharedFunctions;
@@ -23,7 +23,7 @@ namespace operatorClient
         /// <summary>
         /// gets or sets the interval of the internal timer
         /// </summary>
-        public double TimerInterval
+        public int TimerInterval
         {
             get { return timer.Interval; }
             set { timer.Interval = value; }
@@ -42,10 +42,11 @@ namespace operatorClient
         {
             cmdQueue = new Queue<Command>();
             serverController = new ServerController(op);
-            timer = new Timer(1000);
+			timer = new Timer();
 
-            timer.AutoReset = true;
-            timer.Elapsed += timer_Elapsed;
+			timer.Interval = 1000;
+
+			timer.Tick += timer_Elapsed;
 
             if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
             {
@@ -74,7 +75,7 @@ namespace operatorClient
         /// </summary>
         /// <param name="sender">the object which fired this event</param>
         /// <param name="e">the eventArgs</param>
-        private void timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void timer_Elapsed(object sender, EventArgs e)
         {
             if (cmdQueue.Count == 0) return;
             Command tempCmd = cmdQueue.Peek();
