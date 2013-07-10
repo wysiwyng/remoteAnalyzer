@@ -15,15 +15,15 @@ namespace targetClient
 
         private static System.Windows.Forms.Timer timer;
 
-        private static Queue<Command> cmdQueue;
+        private static volatile Queue<Command> cmdQueue;
 
         private static AutoResetEvent newData;
+        
+        private static volatile bool completed;
 
         static void Main(string[] args)
         {
             newData = new AutoResetEvent(false);
-
-            cmdQueue = new Queue<Command>();
 
             timer = new System.Windows.Forms.Timer();
 
@@ -68,21 +68,22 @@ namespace targetClient
                     Debug.WriteLine("new data appeared");
                     Debug.WriteLine(command.ToString());
                     serverController.saveResponse(new Response(command.ID, "yaay i got a command"));
-                }	
+                }
+                completed = true;
             }
         }
 
         static void timer_Tick(object sender, EventArgs e)
         {
-            Command[] commands = serverController.listCommands();
-            foreach (Command command in commands)
+            if (!completed) return;
+            cmdQueue = new Queue<Command>(ServerController.listCommands());
+            if (cmdQueue.Count > 0)
             {
-                cmdQueue.Enqueue(serverController.getCommand(command.ID));
-                Debug.WriteLine("enqueued command no " + command.ID.ToString());
+                Debug.WriteLine("enqueued " + commands.Length.ToString() + " new commands");
+                completed = false;
+                newData.Set();
             }
-            if (cmdQueue.Count > 0) newData.Set();
             Debug.WriteLine("tick");
         }
-
     }
 }
