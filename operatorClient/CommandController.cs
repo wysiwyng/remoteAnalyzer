@@ -42,11 +42,11 @@ namespace operatorClient
         {
             cmdQueue = new Queue<Command>();
             serverController = new ServerController(op);
-			timer = new Timer();
-
-			timer.Interval = 1000;
-
-			timer.Tick += timer_Elapsed;
+            timer = new Timer();
+            
+            timer.Interval = 1000;
+            
+            timer.Tick += timer_Elapsed;
 
             if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
             {
