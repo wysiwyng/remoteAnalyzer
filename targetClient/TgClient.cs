@@ -76,10 +76,10 @@ namespace targetClient
         static void timer_Tick(object sender, EventArgs e)
         {
             if (!completed) return;
-            cmdQueue = new Queue<Command>(ServerController.listCommands());
+            cmdQueue = new Queue<Command>(serverController.listCommands());
             if (cmdQueue.Count > 0)
             {
-                Debug.WriteLine("enqueued " + commands.Length.ToString() + " new commands");
+                Debug.WriteLine("enqueued " + cmdQueue.Count.ToString() + " new commands");
                 completed = false;
                 newData.Set();
             }
