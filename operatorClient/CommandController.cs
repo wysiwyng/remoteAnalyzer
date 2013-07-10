@@ -44,7 +44,7 @@ namespace operatorClient
             serverController = new ServerController(op);
             timer = new Timer();
             
-            timer.Interval = 1000;
+            timer.Interval = 5000;
             
             timer.Tick += timer_Elapsed;
 
