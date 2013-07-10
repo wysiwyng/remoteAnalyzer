@@ -55,20 +55,21 @@ namespace targetClient
             Application.Run();
 
         }
-
+        
+        
         static void cmdInterpreter()
         {
             while (true)
             {
                 newData.WaitOne();
-				while (cmdQueue.Count > 0)
-				{
-					Command command = cmdQueue.Dequeue();
-                	Debug.WriteLine("new data appeared");
-                	Debug.WriteLine(command.ToString());
-					serverController.saveResponse(new Response(command.ID, "yaay i got a command"));
-				}
-			}
+                while (cmdQueue.Count > 0)
+                {
+                    Command command = cmdQueue.Dequeue();
+                    Debug.WriteLine("new data appeared");
+                    Debug.WriteLine(command.ToString());
+                    serverController.saveResponse(new Response(command.ID, "yaay i got a command"));
+                }	
+            }
         }
 
         static void timer_Tick(object sender, EventArgs e)
