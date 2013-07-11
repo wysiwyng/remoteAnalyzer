@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F1BB19E-75D4-4963-8356-7AFBF8916214}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{7ECAB7EA-0E3E-45B6-B400-E498617C51EA}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>operatorClient</RootNamespace>
-    <AssemblyName>operatorClient</AssemblyName>
+    <RootNamespace>sharedObjects</RootNamespace>
+    <AssemblyName>sharedObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <StartupObject>operatorClient.OpClient</StartupObject>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,26 +38,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandController.cs" />
-    <Compile Include="NewResponseEventArgs.cs" />
-    <Compile Include="OpClient.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="IOperator.cs" />
+    <Compile Include="ITarget.cs" />
+    <Compile Include="Operator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ioLibrary\ioLibrary.csproj">
-      <Project>{ff8ad7e1-bf5c-46cf-bd64-4d4fb0ff2cb5}</Project>
-      <Name>ioLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\sharedObjects\sharedObjects.csproj">
-      <Project>{7ecab7ea-0e3e-45b6-b400-e498617c51ea}</Project>
-      <Name>sharedObjects</Name>
-    </ProjectReference>
+    <Compile Include="Response.cs" />
+    <Compile Include="Target.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
