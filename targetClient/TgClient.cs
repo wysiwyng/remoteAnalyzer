@@ -19,7 +19,7 @@ namespace targetClient
 
         private static AutoResetEvent newData;
         
-        private static volatile bool completed;
+        private static volatile bool completed = true;
 
         static void Main(string[] args)
         {
@@ -47,16 +47,12 @@ namespace targetClient
 
             timer.Start();
 
-            Debug.WriteLine("blub");
-
             Thread mainThread = new Thread(new ThreadStart(cmdInterpreter));
             mainThread.Start();
 
             Application.Run();
-
         }
-        
-        
+
         static void cmdInterpreter()
         {
             while (true)
