@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "operatorClient", "operatorClient\operatorClient.csproj", "{7F1BB19E-75D4-4963-8356-7AFBF8916214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sharedFunctions", "sharedFunctions\sharedFunctions.csproj", "{207359FD-5AE3-433C-8F5E-7452C365E41B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "targetClient", "targetClient\targetClient.csproj", "{2F0B61D0-3922-47CC-9E76-72DF923B37A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "targetLibrary", "targetLibrary\targetLibrary.csproj", "{A4F9FD1F-B61C-4F84-B424-B474910902FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioLibrary", "ioLibrary\ioLibrary.csproj", "{FF8AD7E1-BF5C-46CF-BD64-4D4FB0FF2CB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sharedObjects", "sharedObjects\sharedObjects.csproj", "{7ECAB7EA-0E3E-45B6-B400-E498617C51EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,14 +17,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{207359FD-5AE3-433C-8F5E-7452C365E41B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{207359FD-5AE3-433C-8F5E-7452C365E41B}.Debug|x86.Build.0 = Debug|Any CPU
-		{207359FD-5AE3-433C-8F5E-7452C365E41B}.Release|x86.ActiveCfg = Release|Any CPU
-		{207359FD-5AE3-433C-8F5E-7452C365E41B}.Release|x86.Build.0 = Release|Any CPU
 		{2F0B61D0-3922-47CC-9E76-72DF923B37A1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{2F0B61D0-3922-47CC-9E76-72DF923B37A1}.Debug|x86.Build.0 = Debug|Any CPU
 		{2F0B61D0-3922-47CC-9E76-72DF923B37A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{2F0B61D0-3922-47CC-9E76-72DF923B37A1}.Release|x86.Build.0 = Release|Any CPU
+		{7ECAB7EA-0E3E-45B6-B400-E498617C51EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7ECAB7EA-0E3E-45B6-B400-E498617C51EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{7ECAB7EA-0E3E-45B6-B400-E498617C51EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{7ECAB7EA-0E3E-45B6-B400-E498617C51EA}.Release|x86.Build.0 = Release|Any CPU
 		{7F1BB19E-75D4-4963-8356-7AFBF8916214}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{7F1BB19E-75D4-4963-8356-7AFBF8916214}.Debug|x86.Build.0 = Debug|Any CPU
 		{7F1BB19E-75D4-4963-8356-7AFBF8916214}.Release|x86.ActiveCfg = Release|Any CPU
@@ -31,6 +33,10 @@ Global
 		{A4F9FD1F-B61C-4F84-B424-B474910902FD}.Debug|x86.Build.0 = Debug|Any CPU
 		{A4F9FD1F-B61C-4F84-B424-B474910902FD}.Release|x86.ActiveCfg = Release|Any CPU
 		{A4F9FD1F-B61C-4F84-B424-B474910902FD}.Release|x86.Build.0 = Release|Any CPU
+		{FF8AD7E1-BF5C-46CF-BD64-4D4FB0FF2CB5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FF8AD7E1-BF5C-46CF-BD64-4D4FB0FF2CB5}.Debug|x86.Build.0 = Debug|Any CPU
+		{FF8AD7E1-BF5C-46CF-BD64-4D4FB0FF2CB5}.Release|x86.ActiveCfg = Release|Any CPU
+		{FF8AD7E1-BF5C-46CF-BD64-4D4FB0FF2CB5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = targetClient\targetClient.csproj
