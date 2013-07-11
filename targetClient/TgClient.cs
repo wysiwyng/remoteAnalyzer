@@ -3,7 +3,8 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Threading;
-using sharedFunctions;
+using ioLibrary;
+using sharedObjects;
 
 namespace targetClient
 {
@@ -42,6 +43,10 @@ namespace targetClient
             target = new Target(uid, DateTime.Now);
 
             serverController = new ServerController(target);
+
+            //serverController.URI = "<insert url here>";
+
+            //serverController.saveUri(serverController.URI);
 
             serverController.register();
 

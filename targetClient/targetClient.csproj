@@ -54,9 +54,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sharedFunctions\sharedFunctions.csproj">
-      <Project>{207359FD-5AE3-433C-8F5E-7452C365E41B}</Project>
-      <Name>sharedFunctions</Name>
+    <ProjectReference Include="..\ioLibrary\ioLibrary.csproj">
+      <Project>{ff8ad7e1-bf5c-46cf-bd64-4d4fb0ff2cb5}</Project>
+      <Name>ioLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sharedObjects\sharedObjects.csproj">
+      <Project>{7ecab7ea-0e3e-45b6-b400-e498617c51ea}</Project>
+      <Name>sharedObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

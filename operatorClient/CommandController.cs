@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Diagnostics;
-using sharedFunctions;
+using sharedObjects;
+using ioLibrary;
 
 namespace operatorClient
 {
@@ -48,16 +48,35 @@ namespace operatorClient
             
             timer.Tick += timer_Elapsed;
 
-            if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
-            {
+            //if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
+            //{
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
                 serverController.URI = serverController.loadUri();
-            }
+            //}
 
-            serverController.register();
+            while (!register()) { }
 
             timer.Start();
+        }
+
+        private bool register()
+        {
+            try
+            {
+                serverController.register();
+            }
+            catch (System.Net.WebException e)
+            {
+                Console.WriteLine("some io error occured, maybe url is wrong...");
+                Console.WriteLine("error was: ");
+                Console.WriteLine(e.Message);
+                Console.Write("server uri>");
+                serverController.saveUri(Console.ReadLine());
+                serverController.URI = serverController.loadUri();
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
