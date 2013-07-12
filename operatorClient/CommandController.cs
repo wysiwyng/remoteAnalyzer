@@ -48,12 +48,12 @@ namespace operatorClient
             
             timer.Tick += timer_Elapsed;
 
-            //if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
-            //{
+            if (serverController.URI == null || serverController.URI == "")         //load and check server controller uri, if not set prompt for it
+            {
                 Console.Write("server uri>");
                 serverController.saveUri(Console.ReadLine());
                 serverController.URI = serverController.loadUri();
-            //}
+            }
 
             while (!register()) { }
 
