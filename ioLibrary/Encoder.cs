@@ -58,5 +58,10 @@ namespace ioLibrary
         {
             return hexToString(new StreamReader(input).ReadToEnd());
         }
+
+        public static String fileToHex(String filename)
+        {
+            return "";
+        }
     }
 }
